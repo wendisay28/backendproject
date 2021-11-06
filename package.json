@@ -1,7 +1,6 @@
 {
-  "name": "BACKEND-FINAPP",
+  "name": "backend-finapp",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,11 +14,21 @@
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "heroku": "^7.59.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.12",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.14"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wendisay28/backendproject.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wendisay28/backendproject/issues"
+  },
+  "homepage": "https://github.com/wendisay28/backendproject#readme",
+  "description": "backend nodejs app for heroku"
 }
