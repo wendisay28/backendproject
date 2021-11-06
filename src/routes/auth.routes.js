@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const msg = require('../helpers/messages')
 const user = require('../models/user')
-const user= require('../models/user')
 const authService = require('../services/auth.service')
 
 router.post('/register', async (req, res)=>{
