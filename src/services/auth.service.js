@@ -3,6 +3,7 @@ const user = require('../models/user')
 const bcrypt = require('bcrypt')
 const msg = require('../helpers/messages')
 
+
 const authService = {
     signToken: async(id)=>{
         return jwt.sign({id}, process.env.JWT_SECRET, {
