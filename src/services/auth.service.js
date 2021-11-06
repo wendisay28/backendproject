@@ -1,7 +1,8 @@
-const jwt = require('JsonWebToken')
-const user = require('../models/user')
+const jwt = require('jsonwebtoken')
+const User = require('../models/user')
 const bcrypt = require('bcrypt')
 const msg = require('../helpers/messages')
+
 
 
 const authService = {
@@ -10,10 +11,10 @@ const authService = {
             expiresIn: 68 * 60 *24
         })
     },
-    login: async (data) =>{
-        try{
-            const{email, password} = data
-            let userExists = await user.findOne({email:email}, 'name email password').exec()
+    login: async function(data){
+        try {
+            const { email, password } = data
+            let userExists = await User.findOne({email:email}, 'name email password').exec()
             if(await bcrypt.compare(password, userExists.password).then(res=>res)){
                 const token = await this.signToken(userExists.id)
                 return {
