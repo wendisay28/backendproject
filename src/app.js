@@ -9,7 +9,7 @@ const authRoutes = require('./routes/auth.routes')
 
 
 //configuraciones
-app.set(port, process.env.PORT || 3000)
+app.set('port', process.env.PORT || 3000)
 mongoose.connect(process.env.DB_STRING)
 .then(db => console.log('connected to mongo'))
 .catch(err => console.log(err))
