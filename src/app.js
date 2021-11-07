@@ -11,16 +11,19 @@ const authRoutes = require('./routes/auth.routes')
 //configuraciones
 app.set('port', process.env.PORT || 3000)
 mongoose.connect(process.env.DB_STRING)
-.then(db => console.log('connected to mongo'))
+.then(db => console.log('Connected to Mongo'))
 .catch(err => console.log(err))
 
 
 //midlewares
 app.use(morgan('dev'))
 app.use(cors())
+app.use(express.urlencoded({
+    extended: false
+}))
 
 //rutas
-app.use('auth', authRoutes)
+app.use('/auth', authRoutes)
 
 
 //inicio del servidor
