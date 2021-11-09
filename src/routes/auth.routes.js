@@ -3,6 +3,7 @@ const router = express.Router()
 const msg = require('../helpers/messages')
 const User = require('../models/user')
 const authService = require('../services/auth.service')
+const{check, validationResult} = require('express-validator')
 
 /**
  * @api {get} /profile Perfil del usuario
@@ -93,7 +94,14 @@ router.get('/profile', async (req, res)=>{
  *       }
  *   }
  */
-router.post('/register', async (req, res)=>{
+router.post('/register', [
+        check('name', 'nombre muy corto, minimo 2 caracteres').isLength({min:2})
+    ],
+    async (req, res)=>{
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        return res.status(422).json({errors:errors.array()})
+    }
     try {
         const user = new User(req.body)
         let token = await authService.register(user)
@@ -102,7 +110,6 @@ router.post('/register', async (req, res)=>{
         res.send(error)
     }
 })
-
 
 /**
  * @api {post} /login Ingreso de usuarios
