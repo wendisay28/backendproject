@@ -93,16 +93,23 @@ router.get('/profile', async (req, res)=>{
  *           "message": "user validation failed: email: Path `email` is required."
  *       }
  *   }
+ * @apiError (422)(Data Error) error en la validacion de los datos
+ * HTTP/1.1 422 unprosesable entry
  */
+
+
+
 router.post('/register', [
-        check('name', 'nombre muy corto, minimo 2 caracteres').isLength({min:2})
+        check('name', 'nombre muy corto, minimo 2 caracteres').isLength({min:2}),
+        check('email', 'Email no Valido').isEmail(),
+        check('password', 'Contraseña Debil').isStrongPassword()
     ],
     async (req, res)=>{
-    const errors = validationResult(req)
-    if(!errors.isEmpty()){
-        return res.status(422).json({errors:errors.array()})
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
-    try {
+    try{
         const user = new User(req.body)
         let token = await authService.register(user)
         res.status(200).json({"token": token})
