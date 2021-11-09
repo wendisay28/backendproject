@@ -95,6 +95,32 @@ router.get('/profile', async (req, res)=>{
  *   }
  * @apiError (422)(Data Error) error en la validacion de los datos
  * HTTP/1.1 422 unprosesable entry
+ * {
+ *          "token:{ 
+                 "errors": [{
+                 "value": "m",
+                 "msg": "nombre muy corto, minimo 2 caracteres",
+                 "param": "name",
+                 "location": "body"
+                },
+                {
+               "value": "ama",
+                "msg": "Email no Valido",
+                 "param": "email",
+                 "location": "body"
+                 },
+             {
+                "value": "df",
+                 "msg": "Contraseña Debil",
+                "param": "password",
+                "location": "body"
+             }
+             ]
+    }
+ * 
+ * }
+ *                  
+ *          
  */
 
 
@@ -131,7 +157,7 @@ router.post('/login', async (req, res)=>{
     try {
         const {email, password} = req.body
         if(!email || !password){
-            res.status(400).json(msg.fieldsRequired)
+            res.status(422).json(msg.fieldsRequired)
         }
         const token = await authService.login(req.body)
         res.status(token.code).json({"token":token})
